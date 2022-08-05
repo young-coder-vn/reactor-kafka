@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+  raw:
+    image: reactor_kafka:latest
+    ports:
+      - 8080:8080
+    environment:
+      - "SPRING_PROFILES_ACTIVE=dev"
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: "1"
+          memory: 500MB
+      restart_policy:
+        condition: on-failure
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
